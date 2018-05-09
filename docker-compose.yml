@@ -1,0 +1,11 @@
+version: '3.4'
+services:
+  web:
+    build: .
+    ports:
+      - target: 5000
+        published: 5000
+        protocol: tcp
+        mode: host
+  redis:
+    image: "redis:alpine"
