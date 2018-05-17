@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('build'){
             steps{
-                sh 'docker image buid --tag=readytogo .'
+                sh 'docker image build --tag=readytogo .'
             }
         }
     }
