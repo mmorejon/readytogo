@@ -2,10 +2,27 @@ version: '3.4'
 services:
   web:
     build: .
+    # command: ["python", "app.py"]
     ports:
-      - target: 5000
+      - target: 80
         published: 5000
         protocol: tcp
         mode: host
+    networks:
+      - web-network
+      - bd-network
   redis:
     image: "redis:alpine"
+    networks:
+      - bd-network
+    volumes:
+      - type: volume
+        source: mi-redis
+        target: /data
+
+networks:
+  web-network:
+  bd-network:
+
+volumes:
+  mi-redis:
