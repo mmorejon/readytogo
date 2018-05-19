@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'master'
     }
+    parameters {
+        booleanParam(name: 'Mi-Variable', defaultValue: false, description: 'Dime que pongo aqui.')
+    }
     stages {
         stage('build'){
             steps{
