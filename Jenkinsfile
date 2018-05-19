@@ -9,4 +9,17 @@ pipeline {
             }
         }
     }
+    post{
+        success{
+            echo 'Success'
+        }
+        
+        failure{
+            slackSend baseUrl: 'https://gentalia-cujae.slack.com/services/hooks/jenkins-ci/', 
+                channel: 'notifications', 
+                color: 'danger', 
+                message: "Website: Deploy failed on production (<${env.BUILD_URL}|View Build ${env.BUILD_DISPLAY_NAME}>)", 
+                tokenCredentialId: 'slack_token'
+        }
+    }
 }
