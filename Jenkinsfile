@@ -2,9 +2,6 @@ pipeline {
     agent {
         label 'master'
     }
-    parameters {
-        booleanParam(name: 'Mi-Variable', defaultValue: false, description: 'Dime que pongo aqui.')
-    }
     stages {
         stage('build'){
             steps{
@@ -12,12 +9,8 @@ pipeline {
             }
         }
     }
-    post{
+    post{        
         success{
-            echo 'Success'
-        }
-        
-        failure{
             slackSend baseUrl: 'https://gentalia-cujae.slack.com/services/hooks/jenkins-ci/', 
                 channel: 'notifications', 
                 color: 'danger', 
