@@ -9,6 +9,9 @@ pipeline {
             }
         }
         stage('release'){
+            when {
+                branch 'master'
+            }
             steps{
                 sh 'docker image push 188.166.114.239:5000/readytogo:${BUILD_NUMBER}'
             }
