@@ -2,24 +2,25 @@ pipeline {
     agent {
         label 'master'
     }
-    parameters {
-        booleanParam(name: 'Mi-Variable', defaultValue: false, description: 'Dime que pongo aqui.')
-    }
     stages {
         stage('build'){
             steps{
-                sh 'docker image build --tag=readytogo .'
+                sh 'docker image build --tag=188.166.114.239:5000/readytogo:${BUILD_NUMBER} .'
+            }
+        }
+        stage('release'){
+            when {
+                branch 'master'
+            }
+            steps{
+                sh 'docker image push 188.166.114.239:5000/readytogo:${BUILD_NUMBER}'
             }
         }
     }
-    post{
+    post{        
         success{
-            echo 'Success'
-        }
-        
-        failure{
             slackSend baseUrl: 'https://gentalia-cujae.slack.com/services/hooks/jenkins-ci/', 
-                channel: 'notifications', 
+                channel: 'general', 
                 color: 'danger', 
                 message: "Website: Deploy failed on production (<${env.BUILD_URL}|View Build ${env.BUILD_DISPLAY_NAME}>)", 
                 tokenCredentialId: 'slack_token'

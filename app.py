@@ -17,13 +17,13 @@ def get_hit_count():
             if retries == 0:
                 raise exc
             retries -= 1
-            time.sleep(0.5)
+            time.sleep(0.9)
 
 
 @app.route('/')
 def hello():
     count = get_hit_count()
-    return 'Hello World! I have been seen {} times.\n'.format(count)
+    return 'Hello World!! I have been seen {} times.\n'.format(count)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
