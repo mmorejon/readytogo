@@ -5,7 +5,12 @@ pipeline {
     stages {
         stage('build'){
             steps{
-                sh 'docker image build --tag=readytogo .'
+                sh 'docker image build --tag=188.166.114.239:5000/readytogo:${BUILD_NUMBER} .'
+            }
+        }
+        stage('release'){
+            steps{
+                sh 'docker image push 188.166.114.239:5000/readytogo:${BUILD_NUMBER}'
             }
         }
     }
